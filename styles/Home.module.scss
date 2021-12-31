@@ -1,0 +1,8 @@
+.assetList {
+  display: grid;
+  margin: 0 auto;
+  grid-template-columns: repeat(auto-fit, 360px);
+  justify-content: center;
+  grid-gap: 24px;
+  margin: 20px;
+}
