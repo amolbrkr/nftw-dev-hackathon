@@ -4,11 +4,12 @@ import styles from '../styles/Home.module.scss'
 
 const Home: NextPage = (props) => {
   const assetCards = props.assets.map(asset =>
-    <div key={asset.id} className='card'>
+    <div key={asset.id} className='card asset-preview'>
       <div className='card-image'>
         <figure className='image is-4by3'>
           <Image src={asset.image_preview_url} layout='fill' alt='Placeholder image' />
         </figure>
+        <a href='http://test.com'></a>
       </div>
       <div className='card-content'>
         <div className='media'>
@@ -19,21 +20,26 @@ const Home: NextPage = (props) => {
           </div>
           <div className='media-content'>
             <p className='title is-4'>{asset.name}</p>
-            <p className='subtitle is-6'>Sales: {asset.num_sales}</p>
+            {/* <p className='subtitle is-6'>Sales: {asset.num_sales}</p> */}
+            <p className='subtitle is-6'>By <strong>{asset.creator ? asset.creator.user?.username : 'Unknown'}</strong>, {asset.num_sales} units sold.</p>
           </div>
         </div>
 
         <div className='content'>
-          {asset.description?.length > 200 ? `${asset.description.substring(0, 200)}...` : asset.description}
+          {asset.description?.length > 100 ? `${asset.description.substring(0, 99)}...` : asset.description}
         </div>
+      </div>
+      <div className='card-footer asset-footer'>
+        <a href='#' className='card-footer-item'>View</a>
+        <a href={asset.permalink} className='card-footer-item' target='_blank' rel='noreferrer'>Show on Opensea</a>
       </div>
     </div>
   );
 
   return (
-    <div className="container">
+    <div className='container'>
       <div>
-        <h1 className="title is-3">Best Selling NFTs</h1>
+        <h1 className='title is-3'>Best Selling NFTs</h1>
       </div>
       <div className={styles.assetList}>
         {assetCards}
