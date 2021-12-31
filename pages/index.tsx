@@ -31,16 +31,25 @@ const Home: NextPage = (props) => {
   );
 
   return (
-    <div className={styles.assetList}>
-      {assetCards}
+    <div className="container">
+      <div>
+        <h1 className="title is-3">Best Selling NFTs</h1>
+      </div>
+      <div className={styles.assetList}>
+        {assetCards}
+      </div>
     </div>
   )
 }
 
 export default Home
 
-export async function getStaticProps(context) {
-  const res = await fetch('https://api.opensea.io/api/v1/assets?order_by=sale_count&order_direction=desc&offset=0&limit=50');
+export async function getServerSideProps(context) {
+  let inDev = process.env.NODE_ENV !== 'production';
+  let { DEV_URL, PROD_URL } = process.env;
+
+  const res = await fetch(`${inDev ? DEV_URL : PROD_URL}/api/assets`);
+
   if (!res.ok) console.log('Request failed', res.status);
-  return { props: await res.json() };
+  return { props: { assets: await res.json() } };
 }
