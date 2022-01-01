@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Image from 'next/image'
-import styles from '../styles/Home.module.scss'
+import styles from '../../styles/Home.module.scss'
 
 const Home: NextPage = (props) => {
   const assetCards = props.assets.map(asset =>
@@ -29,7 +29,7 @@ const Home: NextPage = (props) => {
         </div>
       </div>
       <div className='card-footer asset-footer'>
-        <a href='#' className='card-footer-item'>View</a>
+        <a href={`/assets/${asset.asset_contract.address}__${asset.token_id}`} className='card-footer-item'>View</a>
         <a href={asset.permalink} className='card-footer-item' target='_blank' rel='noreferrer'>Show on Opensea</a>
       </div>
     </div>

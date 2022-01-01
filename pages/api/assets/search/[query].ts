@@ -1,4 +1,4 @@
-import { connectToDatabase } from '../../../lib/mongo'
+import { connectToDatabase } from '../../../../lib/mongo'
 
 const AssetSearchHandler = async (req: any, res: any) => {
   const { db } = await connectToDatabase();
