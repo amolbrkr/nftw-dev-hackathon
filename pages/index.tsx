@@ -20,7 +20,6 @@ const Home: NextPage = (props) => {
           </div>
           <div className='media-content'>
             <p className='title is-4'>{asset.name}</p>
-            {/* <p className='subtitle is-6'>Sales: {asset.num_sales}</p> */}
             <p className='subtitle is-6'>By <strong>{asset.creator ? asset.creator.user?.username : 'Unknown'}</strong>, {asset.num_sales} units sold.</p>
           </div>
         </div>
