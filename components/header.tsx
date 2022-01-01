@@ -1,7 +1,19 @@
 import type { NextPage } from 'next'
+import React, { useState } from 'react';
 
-const Header: NextPage = () => (
-  <header>
+const Header: NextPage = () => {
+  const [suggestions, setSuggestions] = useState([]);
+
+  const queryChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let query = e.target.value;
+    if (query.length >= 3) {
+      fetch(`http://localhost:3000/api/assets/${query}`).then(res => {
+        res.json().then(data => setSuggestions(data));
+      })
+    } else setSuggestions([]);
+  }
+
+  return (<header>
     <nav className="navbar is-black is-fixed-top has-shadow" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
         <a className="navbar-item" href="/">
@@ -26,20 +38,27 @@ const Header: NextPage = () => (
           </a>
         </div>
         <div className="navbar-end">
-          <div className="navbar-item">
-            <div className="field">
-              <p className="control is-small has-icons-right">
-                <input className="input is-rounded" type="search" placeholder="Search for NFTs" style={{ minWidth: '30vw', height: '32px' }} />
-                <span className="icon is-small is-right">
-                  <i className="fas fa-search"></i>
-                </span>
-              </p>
+          <div className="navbar-item search">
+            <div className="control is-small has-icons-right">
+              <input onInput={e => queryChanged(e)} className="input is-rounded" type="search" placeholder="Search for NFTs" style={{ minWidth: '30vw', height: '32px' }} />
+              <span className="icon is-small is-right">
+                <i className="fas fa-search"></i>
+              </span>
+            </div>
+            <div className='suggestion-wrapper'>
+              {suggestions ? suggestions.map(item => (
+                <div key={item.id}>
+                  <h5 className='title is-5'>{item.name}</h5>
+                  <span className='subtitle is-6'>By {item.creator ? item.creator.user?.username : 'Unknown'}, {item.num_sales} units sold.</span>
+                </div>
+              )) : ""}
             </div>
           </div>
         </div>
       </div>
     </nav>
   </header>
-)
+  )
+}
 
 export default Header;
