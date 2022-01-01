@@ -16,6 +16,18 @@ main {
   padding-top: 80px;
 }
 
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 20px;
+  color: #fff;
+
+  a:hover {
+    color: #f0f0f0;
+  }
+}
+
 .asset-preview {
   position: relative;
 
@@ -32,4 +44,30 @@ main {
   &:hover .asset-footer {
     opacity: 1;
   }
+}
+
+.suggestion-wrapper {
+    position: absolute;
+    background: #fff;
+    color: #333;
+    top: 105%;
+    left: 50%;
+    width: 95%;
+    max-height: 45vh;
+    overflow: auto;
+    transform: translatex(-50%);
+    border-radius: 6px;
+    box-shadow: 0 2px 4px 0px rgba(200, 200, 200, 0.45);
+
+    div {
+      padding: 10px;
+      
+      &:hover {
+        background-color: #f4f4f4;
+      }
+
+      h5 {
+        margin: 0 !important;
+      }
+    }
 }
