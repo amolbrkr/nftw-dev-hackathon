@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import AssetDetail from '../../components/asset_detail'
 
 const Asset = () => {
   const router = useRouter()
@@ -15,10 +16,7 @@ const Asset = () => {
     }
   }, [router]);
 
-  return (
-    <h1>Asset detail will go here</h1>
-  )
-
+  return asset ? <AssetDetail asset={asset} /> : <div className='is-flex is-justify-content-center is-align-items-center'><h3 className='title is-5'>Loading </h3><span className="loader-mixin"></span></div>;
 }
 
 export default Asset;
