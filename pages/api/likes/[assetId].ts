@@ -17,6 +17,7 @@ const LikesHandler = async (req: any, res: any) => {
     await db
       .collection('asset_details')
       .updateOne({ id: parseInt(assetId) }, { $inc: { like_count: +1 } });
+    res.json({ liked: true })
   }
 };
 
