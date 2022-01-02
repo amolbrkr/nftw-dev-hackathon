@@ -40,6 +40,7 @@ footer {
 .asset-preview {
   position: relative;
   overflow: hidden;
+  cursor: pointer;
 
   .card-image {
     min-height: 480px;
@@ -149,8 +150,10 @@ footer {
   }
 }
 
-.loader-mixin {
-  @include loader;
+.center-mixin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 *::-webkit-scrollbar-track {

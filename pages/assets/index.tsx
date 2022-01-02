@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import Loader from 'react-loader-spinner';
 import Utils from '../../lib/util';
 import styles from '../../styles/Home.module.scss'
 
@@ -31,7 +32,7 @@ const Home: NextPage = (props) => {
         dataLength={assets.length}
         next={loadAssets}
         hasMore={true}
-        loader={<h3 className='center-mixin'>Loading...</h3>}
+        loader={<div className='m-4 center-mixin'><Loader type="Grid" color="#111" height={40} width={40} /></div>}
         endMessage={<h4>Nothing more to show</h4>}
       >
         {assets.map(asset =>
