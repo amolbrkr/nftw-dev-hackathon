@@ -11,6 +11,7 @@ const Home: NextPage = (props) => {
   const [assets, setAssets] = useState(props.assets);
   const router = useRouter();
 
+  console.log(assets[0])
   const loadDetail = (addr: string, token: string) => {
     router.push(`/assets/${addr}__${token}`);
   }
@@ -46,6 +47,7 @@ const Home: NextPage = (props) => {
               </a>
             </div>
             <div className='card-content'>
+              <p className="subtitle is-5">${asset.last_sale.payment_token.usd_price.substring(0, 6)}</p>
               <h2 className='title is-4'>{asset.name}</h2>
               <p className='subtitle is-6'>By <strong>{asset.creator ? asset.creator.user?.username : 'Unknown'}</strong>, {asset.num_sales} units sold.</p>
             </div>
