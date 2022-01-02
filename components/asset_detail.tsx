@@ -1,8 +1,15 @@
 import type { NextPage } from 'next'
 import Image from 'next/image'
+import { useState } from 'react';
 
 const AssetDetail: NextPage<any> = ({ asset }) => {
-  console.log(asset);
+  const [likes, setLikes] = useState(asset.like_count);
+
+  const handleLikeClick = (assetId: number) => {
+    setLikes(likes + 1);
+    fetch(`http://localhost:3000/api/likes/${assetId}`, { method: 'POSt' })
+      .then(res => console.log(res));
+  }
   const recentOrders = asset.orders.map(order => (
     <div key={order.order_hash}>
       <div className='is-flex is-align-items-center mb-2'>
@@ -25,6 +32,19 @@ const AssetDetail: NextPage<any> = ({ asset }) => {
       <div className="preview">
         {asset.animation_url ? <video autoPlay muted loop src={asset.animation_url}></video> :
           <Image src={asset.image_url} layout='fill' objectFit='contain' alt='Asset Preview' />}
+        <div className='is-flex is-justify-content-space-between is-align-items-center'>
+          <div className='is-flex is-align-items-center'>
+            <button onClick={() => handleLikeClick(asset.id)} className="button is-large is-outlined is-black">
+              <div className="icon is-large">
+                <Image src="/heart.png" height={30} width={30} alt='Show in OpenSea' />
+              </div>
+            </button>
+            <span className='ml-2 subtitle is-4'>{likes} likes</span>
+          </div>
+          <a className="button is-black is-large" href={asset.permalink} target='_blank' rel='noopener noreferrer'>
+            <div className='mr-2'>Buy Now </div>
+            <Image src="/external.png" height={24} width={24} alt='Show in OpenSea' /></a>
+        </div>
       </div>
       <div className="asset-info">
         <h1 className="title is-3 has-text-weight-bold">{asset.name}</h1>
@@ -67,14 +87,12 @@ const AssetDetail: NextPage<any> = ({ asset }) => {
             </div>
           </div>
         </div>
-        <div className="partition">
+        {asset.orders ? <div className="partition">
           <h3 className="title is-5">Recent Orders</h3>
-          <div className="stats orders">
-            {recentOrders}
-          </div>
-        </div>
+          <div className="stats orders">{recentOrders}</div>
+        </div> : ''}
       </div>
-    </div>
+    </div >
   )
 }
 

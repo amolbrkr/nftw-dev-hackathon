@@ -17,7 +17,7 @@ const Header: NextPage = () => {
     <nav className="navbar is-black is-fixed-top has-shadow" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
         <a className="navbar-item" href="/">
-          <h1 className='title is-3 has-text-white'>NFTrove</h1>
+          <h1 className='title is-3 has-text-danger'>NFTW</h1>
         </a>
 
         <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -48,8 +48,10 @@ const Header: NextPage = () => {
             <div className='suggestion-wrapper'>
               {suggestions ? suggestions.map(item => (
                 <div key={item.id}>
-                  <h5 className='title is-5'>{item.name}</h5>
-                  <span className='subtitle is-6'>By {item.creator ? item.creator.user?.username : 'Unknown'}, {item.num_sales} units sold.</span>
+                  <a href={`/assets/${item.asset_contract.address}__${item.token_id}`} >
+                    <h5 className='title is-5'>{item.name}</h5>
+                    <span className='subtitle is-6'>By {item.creator ? item.creator.user?.username : 'Unknown'}, {item.num_sales} units sold.</span>
+                  </a>
                 </div>
               )) : ""}
             </div>
