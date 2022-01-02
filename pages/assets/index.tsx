@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import Image from 'next/image'
+import Utils from '../../lib/util';
 import styles from '../../styles/Home.module.scss'
 
 const Home: NextPage = (props) => {
@@ -35,10 +36,7 @@ const Home: NextPage = (props) => {
 export default Home
 
 export async function getServerSideProps(context) {
-  let inDev = process.env.NODE_ENV !== 'production';
-  let { DEV_URL, PROD_URL } = process.env;
-
-  const res = await fetch(`${inDev ? DEV_URL : PROD_URL}/api/assets`);
+  const res = await fetch(`${Utils.baseUrl}/api/assets`);
 
   if (!res.ok) console.log('Request failed', res.status);
   return { props: { assets: await res.json() } };

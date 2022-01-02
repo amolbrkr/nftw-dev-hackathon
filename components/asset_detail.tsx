@@ -1,13 +1,14 @@
 import type { NextPage } from 'next'
 import Image from 'next/image'
 import { useState } from 'react';
+import Utils from '../lib/util';
 
 const AssetDetail: NextPage<any> = ({ asset }) => {
   const [likes, setLikes] = useState(asset.like_count);
 
   const handleLikeClick = (assetId: number) => {
     setLikes(likes + 1);
-    fetch(`http://localhost:3000/api/likes/${assetId}`, { method: 'POSt' })
+    fetch(`${Utils.baseUrl}/api/likes/${assetId}`, { method: 'POSt' })
       .then(res => console.log(res));
   }
   const recentOrders = asset.orders.map(order => (

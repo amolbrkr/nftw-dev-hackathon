@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import AssetDetail from '../../components/asset_detail'
+import Utils from '../../lib/util'
 
 const Asset = () => {
   const router = useRouter()
@@ -9,7 +10,7 @@ const Asset = () => {
   useEffect(() => {
     if (router.asPath !== router.route) {
       const { id } = router.query
-      fetch(`http://localhost:3000/api/assets/${id}`).then(res => res.json()).then(data => setAsset(data));
+      fetch(`${Utils.baseUrl}/api/assets/${id}`).then(res => res.json()).then(data => setAsset(data));
     }
   }, [router]);
 

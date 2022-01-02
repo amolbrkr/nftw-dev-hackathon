@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import React, { useState } from 'react';
+import Utils from '../lib/util';
 
 const Header: NextPage = () => {
   const [suggestions, setSuggestions] = useState([]);
@@ -7,7 +8,7 @@ const Header: NextPage = () => {
   const queryChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
     let query = e.target.value;
     if (query.length >= 3) {
-      fetch(`http://localhost:3000/api/assets/search/${query}`).then(res => {
+      fetch(`${Utils.baseUrl}/api/assets/search/${query}`).then(res => {
         res.json().then(data => setSuggestions(data));
       })
     } else setSuggestions([]);
