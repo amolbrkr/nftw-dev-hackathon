@@ -30,9 +30,11 @@ const AssetDetail: NextPage<any> = ({ asset }) => {
 
   return (
     <div className="container asset-detail">
-      <div className="preview">
-        {asset.animation_url ? <video autoPlay muted loop src={asset.animation_url}></video> :
-          <Image src={asset.image_url} layout='fill' objectFit='contain' alt='Asset Preview' />}
+      <div className="preview-wrapper">
+        <div className="preview">
+          {asset.animation_url ? <video autoPlay muted loop src={asset.animation_url}></video> :
+            <Image src={asset.image_url} layout='fill' objectFit='contain' alt='Asset Preview' />}
+        </div>
         <div className='is-flex is-justify-content-space-between is-align-items-center'>
           <div className='is-flex is-align-items-center'>
             <button onClick={() => handleLikeClick(asset.id)} className="button is-large is-outlined is-black">
@@ -49,7 +51,7 @@ const AssetDetail: NextPage<any> = ({ asset }) => {
       </div>
       <div className="asset-info">
         <h1 className="title is-3 has-text-weight-bold">{asset.name}</h1>
-        <h3 className="subtitle is-6">Created by {asset.creator.user?.username} on {new Date(asset.asset_contract.created_date).toLocaleDateString('en-US', Utils.dateFormatOptions)}</h3>
+        <h3 className="subtitle is-6">Created by {asset.creator?.user?.username} on {new Date(asset.asset_contract.created_date).toLocaleDateString('en-US', Utils.dateFormatOptions)}</h3>
         <p>
           {asset.description}
         </p>

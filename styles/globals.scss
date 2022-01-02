@@ -121,13 +121,19 @@ footer {
 }
 
 .asset-detail {
+  min-height: 105vh;
   display: grid;
   grid-template-columns: 40% 60%;
   grid-gap: 20px;
 
   .preview {
-    min-height: 80vh;
+    height: 70vh;
     position: relative;
+    margin-bottom: 20px;
+
+    img, video {
+      border-radius: 4px;
+    }
   }
 
   .partition {
