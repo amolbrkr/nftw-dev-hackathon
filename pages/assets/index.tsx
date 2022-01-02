@@ -4,35 +4,20 @@ import styles from '../../styles/Home.module.scss'
 
 const Home: NextPage = (props) => {
   const assetCards = props.assets.map(asset =>
-    <div key={asset.id} className='card asset-preview'>
+    <a href={`/assets/${asset.asset_contract.address}__${asset.token_id}`} key={asset.id} className='card asset-preview'>
       <div className='card-image'>
-        <figure className='image is-4by3'>
-          <Image src={asset.image_preview_url} layout='fill' alt='Placeholder image' />
-        </figure>
-        <a href='http://test.com'></a>
+        <Image src={asset.image_url} layout='fill' objectFit='cover' alt='Placeholder image' />
+      </div>
+      <div className="ext-link">
+        <a href={asset.permalink} target='_blank' rel='noopener noreferrer'>
+          <Image src="/external.png" height={30} width={30} alt='Show in OpenSea' />
+        </a>
       </div>
       <div className='card-content'>
-        <div className='media'>
-          <div className='media-left'>
-            <figure className='image is-48x48 is-rounded'>
-              <Image src={asset.owner.profile_img_url} className='is-rounded' layout='fill' alt='Placeholder image' />
-            </figure>
-          </div>
-          <div className='media-content'>
-            <p className='title is-4'>{asset.name}</p>
-            <p className='subtitle is-6'>By <strong>{asset.creator ? asset.creator.user?.username : 'Unknown'}</strong>, {asset.num_sales} units sold.</p>
-          </div>
-        </div>
-
-        <div className='content'>
-          {asset.description?.length > 100 ? `${asset.description.substring(0, 99)}...` : asset.description}
-        </div>
+        <h2 className='title is-4'>{asset.name}</h2>
+        <p className='subtitle is-6'>By <strong>{asset.creator ? asset.creator.user?.username : 'Unknown'}</strong>, {asset.num_sales} units sold.</p>
       </div>
-      <div className='card-footer asset-footer'>
-        <a href={`/assets/${asset.asset_contract.address}__${asset.token_id}`} className='card-footer-item'>View</a>
-        <a href={asset.permalink} className='card-footer-item' target='_blank' rel='noreferrer'>Show on Opensea</a>
-      </div>
-    </div>
+    </a>
   );
 
   return (

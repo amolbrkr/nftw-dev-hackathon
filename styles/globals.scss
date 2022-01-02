@@ -14,6 +14,7 @@ body {
 
 main {
   padding-top: 80px;
+  min-height: calc(100vh - 80px);
 }
 
 footer {
@@ -38,44 +39,116 @@ footer {
 
 .asset-preview {
   position: relative;
+  overflow: hidden;
 
-  .asset-footer {
-    background-color: #f4f4f4;
+  .card-image {
+    min-height: 480px;
+  }
+
+  .card-content {
     position: absolute;
+    bottom: 0;
     left: 0;
     right: 0;
-    bottom: 0;
-    transition: all 0.45s ease-in-out;
+    background-color: rgba(100, 100, 100, 0.65);
+    backdrop-filter: blur(12px);
+    opacity: 0;
+
+    h2,
+    p,
+    strong {
+      color: #f0f0f0;
+    }
+  }
+
+  .ext-link {
+    position: absolute;
+    right: 5px;
+    top: 5px;
     opacity: 0;
   }
 
-  &:hover .asset-footer {
-    opacity: 1;
+  &:hover {
+    transform: translateY(-6px);
+  }
+
+  &:hover {
+    .ext-link {
+      opacity: 1;
+    }
+
+    .card-content {
+      opacity: 1;
+    }
+
+    .asset-footer {
+      opacity: 1;
+    }
   }
 }
 
+.asset-preview,
+.ext-link,
+.card-content {
+  transition: all 0.45s ease-in-out;
+}
+
 .suggestion-wrapper {
-    position: absolute;
-    background: #fff;
-    color: #333;
-    top: 105%;
-    left: 50%;
-    width: 95%;
-    max-height: 45vh;
-    overflow: auto;
-    transform: translatex(-50%);
-    border-radius: 6px;
-    box-shadow: 0 2px 4px 0px rgba(200, 200, 200, 0.45);
+  position: absolute;
+  background: #fff;
+  color: #333;
+  top: 105%;
+  left: 50%;
+  width: 95%;
+  max-height: 45vh;
+  overflow: auto;
+  transform: translatex(-50%);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px 0px rgba(200, 200, 200, 0.45);
 
-    div {
-      padding: 10px;
-      
-      &:hover {
-        background-color: #f4f4f4;
-      }
+  div {
+    padding: 10px;
 
-      h5 {
-        margin: 0 !important;
-      }
+    &:hover {
+      background-color: #f4f4f4;
     }
+
+    h5 {
+      margin: 0 !important;
+    }
+  }
+}
+
+.asset-detail {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  grid-gap: 20px;
+
+  .preview {
+    min-height: 80vh;
+    position: relative;
+  }
+
+  .partition {
+    margin: 20px 0;
+
+    h3 {
+      margin-bottom: 5px;
+    }
+  }
+
+  .stats {
+    padding: 20px;
+    border: 1px solid rgb(190, 190, 190);
+    border-radius: 6px;
+  }
+
+  .orders {
+    max-height: 450px;
+    overflow: auto;
+  }
+}
+
+.loader-mixin {
+  @include loader;
 }
