@@ -13,22 +13,6 @@ const Home: NextPage = (props) => {
   const loadDetail = (addr: string, token: string) => {
     router.push(`/assets/${addr}__${token}`);
   }
-  const assetCards = assets.map(asset =>
-    <div onClick={() => loadDetail(asset.asset_contract.address, asset.token_id)} key={asset.id} className='card asset-preview'>
-      <div className='card-image'>
-        <Image src={asset.image_url} layout='fill' objectFit='cover' alt='Placeholder image' />
-      </div>
-      <div className="ext-link">
-        <a href={asset.permalink} target='_blank' rel='noopener noreferrer'>
-          <Image src="/external.png" height={30} width={30} alt='Show in OpenSea' />
-        </a>
-      </div>
-      <div className='card-content'>
-        <h2 className='title is-4'>{asset.name}</h2>
-        <p className='subtitle is-6'>By <strong>{asset.creator ? asset.creator.user?.username : 'Unknown'}</strong>, {asset.num_sales} units sold.</p>
-      </div>
-    </div>
-  );
 
   const loadAssets = async () => {
     const page = (assets.length / 10) + 1; // Number of pages / page size + 1
