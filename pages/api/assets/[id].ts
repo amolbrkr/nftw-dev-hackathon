@@ -14,7 +14,6 @@ const AssetSearchHandler = async (req: any, res: any) => {
     fetch(`https://api.opensea.io/api/v1/asset/${contractAddr}/${tokenId}/`)
       .then(res => res.json())
       .then(async data => {
-        console.log("fetched from opensea")
         await db
           .collection('asset_details')
           .insertOne({ ...data, like_count: 0 });

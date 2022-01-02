@@ -11,7 +11,6 @@ const Home: NextPage = (props) => {
   const [assets, setAssets] = useState(props.assets);
   const router = useRouter();
 
-  console.log(assets[0])
   const loadDetail = (addr: string, token: string) => {
     router.push(`/assets/${addr}__${token}`);
   }
