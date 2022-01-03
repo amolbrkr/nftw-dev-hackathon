@@ -150,6 +150,11 @@ footer {
     border-radius: 6px;
   }
 
+  .ownerships {
+    max-height: 200px;
+    overflow: auto;
+  }
+
   .orders {
     max-height: 350px;
     overflow: auto;

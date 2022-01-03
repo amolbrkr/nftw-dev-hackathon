@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Utils from '../lib/util';
 
 const AssetDetail: NextPage<any> = ({ asset }) => {
+  console.log(asset);
   const [likes, setLikes] = useState(asset.like_count);
 
   const handleLikeClick = (assetId: number) => {
@@ -11,22 +12,35 @@ const AssetDetail: NextPage<any> = ({ asset }) => {
     fetch(`${Utils.baseUrl}/api/likes/${assetId}`, { method: 'POSt' })
       .then(res => console.log(res));
   }
+
   const recentOrders = asset.orders.map((order: any) => (
-    <div key={order.order_hash}>
-      <div className='is-flex is-align-items-center mb-2'>
-        <figure className='image is-48x48 is-rounded'>
-          <Image src={order.maker.profile_img_url} className='is-rounded' layout='fill' alt='Placeholder image' />
-        </figure>
-        <div className='is-flex is-justify-content-space-between ml-2' style={{ width: '100%' }}>
-          <div>
-            <h4 className="subtitle is-5 mb-0">{order.maker.user?.username}</h4>
-            <span><strong>{order.payment_token_contract.eth_price.substring(0, 4)} ETH</strong> (${order.payment_token_contract.usd_price.substring(0, 6)})</span>
-          </div>
-          <div>Expires on {new Date(order.closing_date).toLocaleDateString('en-US', Utils.dateFormatOptions as any)}</div>
+    <div key={order.order_hash} className='is-flex is-align-items-center mb-2'>
+      <figure className='image is-48x48 is-rounded'>
+        <Image src={order.maker.profile_img_url} className='is-rounded' layout='fill' alt='Placeholder image' />
+      </figure>
+      <div className='is-flex is-justify-content-space-between ml-2' style={{ width: '100%' }}>
+        <div>
+          <h4 className="subtitle is-5 mb-0">{order.maker.user?.username}</h4>
+          <span><strong>{order.payment_token_contract.eth_price.substring(0, 4)} ETH</strong> (${order.payment_token_contract.usd_price.substring(0, 6)})</span>
         </div>
+        <div>Expires on {new Date(order.closing_date).toLocaleDateString('en-US', Utils.dateFormatOptions as any)}</div>
       </div>
     </div>
-  ))
+  ));
+
+  const ownerships = asset.top_ownerships.filter((item: any) => item.owner?.user?.username ? true : false).map((item: any) => (
+    <div key={item.owner.address} className='is-flex is-align-items-center mb-2'>
+      <figure className='image is-48x48 is-rounded'>
+        <Image src={item.owner.profile_img_url} className='is-rounded' layout='fill' alt='Placeholder image' />
+      </figure>
+      <div className='is-flex is-justify-content-space-between ml-2' style={{ width: '100%' }}>
+        <div>
+          <h4 className="subtitle is-5 mb-0">{item.owner?.user?.username}</h4>
+        </div>
+        <div>Owns {item.quantity}</div>
+      </div>
+    </div>
+  ));
 
   return (
     <div className="container asset-detail">
@@ -90,6 +104,10 @@ const AssetDetail: NextPage<any> = ({ asset }) => {
             </div>
           </div>
         </div>
+        {asset.top_ownerships ? <div className="partition">
+          <h3 className="title is-5">Top Ownerships</h3>
+          <div className="stats ownerships">{ownerships}</div>
+        </div> : ''}
         {asset.orders ? <div className="partition">
           <h3 className="title is-5">Recent Orders</h3>
           <div className="stats orders">{recentOrders}</div>
