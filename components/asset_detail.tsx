@@ -4,7 +4,6 @@ import { useState } from 'react';
 import Utils from '../lib/util';
 
 const AssetDetail: NextPage<any> = ({ asset }) => {
-  console.log(asset);
   const [likes, setLikes] = useState(asset.like_count);
 
   const handleLikeClick = (assetId: number) => {
@@ -62,6 +61,10 @@ const AssetDetail: NextPage<any> = ({ asset }) => {
             <div className='mr-2'>Buy Now </div>
             <Image src="/external.png" height={24} width={24} alt='Show in OpenSea' /></a>
         </div>
+        {asset.top_ownerships ? <div className="partition">
+          <h3 className="title is-5">Top Ownerships</h3>
+          <div className="stats ownerships">{ownerships}</div>
+        </div> : ''}
       </div>
       <div className="asset-info">
         <h1 className="title is-3 has-text-weight-bold">{asset.name}</h1>
@@ -104,10 +107,6 @@ const AssetDetail: NextPage<any> = ({ asset }) => {
             </div>
           </div>
         </div>
-        {asset.top_ownerships ? <div className="partition">
-          <h3 className="title is-5">Top Ownerships</h3>
-          <div className="stats ownerships">{ownerships}</div>
-        </div> : ''}
         {asset.orders ? <div className="partition">
           <h3 className="title is-5">Recent Orders</h3>
           <div className="stats orders">{recentOrders}</div>
