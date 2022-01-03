@@ -11,7 +11,7 @@ const AssetDetail: NextPage<any> = ({ asset }) => {
     fetch(`${Utils.baseUrl}/api/likes/${assetId}`, { method: 'POSt' })
       .then(res => console.log(res));
   }
-  const recentOrders = asset.orders.map(order => (
+  const recentOrders = asset.orders.map((order: any) => (
     <div key={order.order_hash}>
       <div className='is-flex is-align-items-center mb-2'>
         <figure className='image is-48x48 is-rounded'>
@@ -22,7 +22,7 @@ const AssetDetail: NextPage<any> = ({ asset }) => {
             <h4 className="subtitle is-5 mb-0">{order.maker.user?.username}</h4>
             <span><strong>{order.payment_token_contract.eth_price.substring(0, 4)} ETH</strong> (${order.payment_token_contract.usd_price.substring(0, 6)})</span>
           </div>
-          <div>Expires on {new Date(order.closing_date).toLocaleDateString('en-US', Utils.dateFormatOptions)}</div>
+          <div>Expires on {new Date(order.closing_date).toLocaleDateString('en-US', Utils.dateFormatOptions as any)}</div>
         </div>
       </div>
     </div>
@@ -51,7 +51,7 @@ const AssetDetail: NextPage<any> = ({ asset }) => {
       </div>
       <div className="asset-info">
         <h1 className="title is-3 has-text-weight-bold">{asset.name}</h1>
-        <h3 className="subtitle is-6">Created by {asset.creator?.user?.username} on {new Date(asset.asset_contract.created_date).toLocaleDateString('en-US', Utils.dateFormatOptions)}</h3>
+        <h3 className="subtitle is-6">Created by {asset.creator?.user?.username} on {new Date(asset.asset_contract.created_date).toLocaleDateString('en-US', Utils.dateFormatOptions as any)}</h3>
         <p>
           {asset.description}
         </p>

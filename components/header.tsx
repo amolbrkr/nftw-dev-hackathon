@@ -1,12 +1,12 @@
 import type { NextPage } from 'next'
-import React, { useState } from 'react';
+import React, { FormEvent, FormEventHandler, useState } from 'react';
 import Utils from '../lib/util';
 
 const Header: NextPage = () => {
   const [suggestions, setSuggestions] = useState([]);
 
-  const queryChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let query = e.target.value;
+  const queryChanged = (e: FormEvent<HTMLInputElement>) => {
+    let query = (e.target as HTMLInputElement).value;
     if (query.length >= 3) {
       fetch(`${Utils.baseUrl}/api/assets/search/${query}`).then(res => {
         res.json().then(data => setSuggestions(data));
@@ -43,7 +43,7 @@ const Header: NextPage = () => {
               </span>
             </div>
             <div className='suggestion-wrapper'>
-              {suggestions ? suggestions.map(item => (
+              {suggestions ? suggestions.map((item: any)=> (
                 <div key={item.id}>
                   <a href={`/assets/${item.asset_contract.address}__${item.token_id}`} >
                     <h5 className='title is-5'>{item.name}</h5>

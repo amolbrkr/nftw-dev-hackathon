@@ -3,8 +3,8 @@ import { MongoClient } from 'mongodb';
 const MONGODB_URI = process.env.MONGODB_URI;
 const MONGODB_DB = process.env.DB_NAME;
 
-let cachedClient = null;
-let cachedDb = null;
+let cachedClient:any = null;
+let cachedDb:any = null;
 
 export async function connectToDatabase() {
     if (cachedClient && cachedDb) {
@@ -19,7 +19,7 @@ export async function connectToDatabase() {
     };
 
     // Connect to cluster
-    let client = new MongoClient(MONGODB_URI, opts);
+    let client = new MongoClient(MONGODB_URI!, opts as any);
     await client.connect();
     let db = client.db(MONGODB_DB);
 

@@ -7,8 +7,12 @@ import Loader from 'react-loader-spinner';
 import Utils from '../../lib/util';
 import styles from '../../styles/Home.module.scss'
 
-const Home: NextPage = (props) => {
-  const [assets, setAssets] = useState(props.assets);
+interface Props {
+  assets: any
+}
+
+const Home: NextPage<Props> = (props) => {
+  const [assets, setAssets] = useState(props.assets as any);
   const router = useRouter();
 
   const loadDetail = (addr: string, token: string) => {
@@ -19,7 +23,7 @@ const Home: NextPage = (props) => {
     const page = (assets.length / 10) + 1; // Number of pages / page size + 1
     fetch(`${Utils.baseUrl}/api/assets?page=${page}`)
       .then(res => res.json())
-      .then(newAssets => setAssets((assets) => [...assets, ...newAssets]));
+      .then(newAssets => setAssets((assets: any) => [...assets, ...newAssets]));
   }
 
   return (
@@ -35,7 +39,7 @@ const Home: NextPage = (props) => {
         loader={<div className='m-4 center-mixin'><Loader type="Grid" color="#111" height={40} width={40} /></div>}
         endMessage={<h4>Nothing more to show</h4>}
       >
-        {assets.map(asset =>
+        {assets.map((asset: any)=>
           <div onClick={() => loadDetail(asset.asset_contract.address, asset.token_id)} key={asset.id} className='card asset-preview'>
             <div className='card-image'>
               <Image src={asset.image_url} layout='fill' objectFit='cover' alt='Placeholder image' />
@@ -58,7 +62,7 @@ const Home: NextPage = (props) => {
 
 export default Home
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: any) {
   const res = await fetch(`${Utils.baseUrl}/api/assets?page=1`);
 
   if (!res.ok) console.log('Request failed', res.status);
