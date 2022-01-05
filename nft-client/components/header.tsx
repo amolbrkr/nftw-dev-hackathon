@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import Image from 'next/image'
 import React, { FormEvent, FormEventHandler, useState } from 'react';
 import Utils from '../lib/util';
 
@@ -38,12 +39,12 @@ const Header: NextPage = () => {
           <div className="navbar-item search">
             <div className="control is-small has-icons-right">
               <input onInput={e => queryChanged(e)} className="input is-rounded" type="search" placeholder="Search for NFTs" style={{ minWidth: '30vw', height: '32px' }} />
-              <span className="icon is-small is-right">
-                <i className="fas fa-search"></i>
+              <span className="icon is-small is-right" style={{ marginTop: '-4px' }}>
+                <Image src="/search.png" height={16} width={16} alt='Search' />
               </span>
             </div>
             <div className='suggestion-wrapper'>
-              {suggestions ? suggestions.map((item: any)=> (
+              {suggestions ? suggestions.map((item: any) => (
                 <div key={item.id}>
                   <a href={`/assets/${item.asset_contract.address}__${item.token_id}`} >
                     <h5 className='title is-5'>{item.name}</h5>
