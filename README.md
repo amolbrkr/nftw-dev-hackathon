@@ -1,1 +1,0 @@
-# NFTW - The NFT Marketplace
