@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import Image from 'next/image'
 import { useState } from 'react';
+import ReactTooltip from 'react-tooltip';
 import Utils from '../lib/util';
 
 const AssetDetail: NextPage<any> = ({ asset }) => {
@@ -10,6 +11,10 @@ const AssetDetail: NextPage<any> = ({ asset }) => {
     setLikes(likes + 1);
     fetch(`${Utils.baseUrl}/api/likes/${assetId}`, { method: 'POSt' })
       .then(res => console.log(res));
+  }
+
+  const handleShareClick = () => {
+    navigator.clipboard.writeText(`https://nftw.netlify.app/assets/${asset.asset_contract.address}__${asset.token_id}`);
   }
 
   const recentOrders = asset.orders.map((order: any) => (
@@ -50,6 +55,12 @@ const AssetDetail: NextPage<any> = ({ asset }) => {
         </div>
         <div className='is-flex is-justify-content-space-between is-align-items-center'>
           <div className='is-flex is-align-items-center'>
+            <ReactTooltip place="top" type="dark" effect="solid" globalEventOff="click" />
+            <button data-tip='Copied to Clipboard' data-event='click focus' onClick={() => handleShareClick()} className="button is-large is-outlined is-black mr-2">
+              <div className="icon is-large">
+                <Image src="/share.png" height={30} width={30} alt='Show in OpenSea' />
+              </div>
+            </button>
             <button onClick={() => handleLikeClick(asset.id)} className="button is-large is-outlined is-black">
               <div className="icon is-large">
                 <Image src="/heart.png" height={30} width={30} alt='Show in OpenSea' />
