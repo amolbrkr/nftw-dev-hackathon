@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import AssetDetail from '../../components/asset_detail'
 import Loader from 'react-loader-spinner'
@@ -15,7 +16,14 @@ const Asset = () => {
     }
   }, [router]);
 
-  return asset ? <AssetDetail asset={asset} /> : <div className='m-4 center-mixin'><Loader type="Grid" color="#111" height={40} width={40} /></div>;
+  return (
+    <>
+      <Head>
+        <title>NFTW Asset - {(asset as any)?.name}</title>
+      </Head>
+      {asset ? <AssetDetail asset={asset} /> : <div className='m-4 center-mixin'><Loader type="Grid" color="#111" height={40} width={40} /></div>}
+    </>
+  )
 }
 
 export default Asset;
