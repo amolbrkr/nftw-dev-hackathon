@@ -31,7 +31,7 @@ const Header: NextPage = () => {
 
       <div id="navbarBasicExample" className="navbar-menu">
         <div className="navbar-start">
-          <a className="navbar-item">
+          <a href="https://github.com/amolbrkr/nftw-dev-hackathon" target="_blank" rel="noopener noreferrer" className="navbar-item">
             View on Github
           </a>
         </div>
